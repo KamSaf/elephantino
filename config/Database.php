@@ -1,27 +1,28 @@
 <?php
 class Database
 {
-    private string $_host = 'localhost';
-    private string $_dbName = 'restApi';
-    private string $_username = 'root';
-    private string $_password = 'password';
-    private PDO $_conn;
+    const HOST = '172.17.0.3';
+    const DATABASE_NAME = 'rest_api';
+    const USERNAME = 'php';
+    const PASSWORD = 'password';
 
-    public function connect(): PDO
+    public static function connect(): PDO | null
     {
-        $this->_conn = null;
+        $conn = null;
 
         try {
-            $this->_conn = new PDO(
-                "mysql:host={$this->_host};dbname={$this->_dbName}",
-                $this->_username,
-                $this->_password
+            $host = Database::HOST;
+            $dbName = Database::DATABASE_NAME;
+            $conn = new PDO(
+                "mysql:host={$host};dbname={$dbName}",
+                Database::USERNAME,
+                Database::PASSWORD,
             );
-            $this->_conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
             echo 'Connection Error: ' . $e->getMessage();
         }
 
-        return $this->_conn;
+        return $conn;
     }
 }

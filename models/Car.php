@@ -2,8 +2,8 @@
 
 class Car
 {
+    const TABLE_NAME = 'cars';
     private PDO $_conn;
-    private string $_tableName = 'cars';
 
     public int $id;
     public string $make;
@@ -16,14 +16,35 @@ class Car
         $this->_conn = $conn;
     }
 
-    public function readAll()
+    public static function getAll(PDO $conn): array
     {
-        string:
-        $query = "SELECT * FROM {$this->_tableName};";
+        $query = "SELECT * FROM {Car::TABLE_NAME};";
 
-        $stmt = $this->_conn->prepare($query);
+        $stmt = $conn->prepare($query);
         $stmt->execute();
 
-        return $stmt;
+        $objArr = [];
+
+        if ($stmt->rowCount() > 0) {
+            while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                array_push($objArr, $row);
+            }
+        }
+
+        return array();
     }
 }
+
+
+// $query = 'SELECT * FROM cars';
+
+// $stmt = $conn->prepare($query);
+// $stmt->execute();
+
+// if ($stmt->rowCount() > 0) {
+//     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+//         var_dump($row);
+//     }
+// } else {
+//     echo 'no record to display';
+// }
