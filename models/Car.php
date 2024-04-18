@@ -1,5 +1,7 @@
 <?php
 
+require_once $_SERVER['DOCUMENT_ROOT'] . '/config/Database.php';
+
 class Car
 {
     const TABLE_NAME = 'cars';
@@ -16,13 +18,14 @@ class Car
         $this->_conn = $conn;
     }
 
-    public static function getAll(PDO $conn): array
+    public static function getAll(): array
     {
-        $query = "SELECT * FROM {Car::TABLE_NAME};";
+        $conn = Database::connect();
+        $tbName = Car::TABLE_NAME;
+        $query = "SELECT * FROM {$tbName};";
 
         $stmt = $conn->prepare($query);
         $stmt->execute();
-
         $objArr = [];
 
         if ($stmt->rowCount() > 0) {
@@ -30,21 +33,9 @@ class Car
                 array_push($objArr, $row);
             }
         }
+        $stmt = null;
+        $conn = null;
 
-        return array();
+        return $objArr;
     }
 }
-
-
-// $query = 'SELECT * FROM cars';
-
-// $stmt = $conn->prepare($query);
-// $stmt->execute();
-
-// if ($stmt->rowCount() > 0) {
-//     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-//         var_dump($row);
-//     }
-// } else {
-//     echo 'no record to display';
-// }
