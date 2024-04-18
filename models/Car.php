@@ -1,12 +1,11 @@
 <?php
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/config/Database.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/Database.php';
 
 class Car
 {
     const TABLE_NAME = 'cars';
     private PDO $_conn;
-
     public int $id;
     public string $make;
     public string $model;
@@ -18,11 +17,16 @@ class Car
         $this->_conn = $conn;
     }
 
+    public function closeConn()
+    {
+        $this->_conn = null;
+    }
+
     public static function getAll(): array
     {
         $conn = Database::connect();
-        $tbName = Car::TABLE_NAME;
-        $query = "SELECT * FROM {$tbName};";
+        $tableName = Car::TABLE_NAME;
+        $query = "SELECT * FROM {$tableName};";
 
         $stmt = $conn->prepare($query);
         $stmt->execute();
