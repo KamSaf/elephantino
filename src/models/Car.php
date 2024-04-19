@@ -4,26 +4,27 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/src/utils/Database.php';
 
 
 /**
- * Model class representing cars table in the database
+ * Model class representing cars table in the database.
  */
 class Car
 {
     const TABLE_NAME = 'cars';
     private PDO $_conn;
-    private int $_id;
+    private int|null $_id;
     private string $_make;
     private string $_model;
     private string $_color;
-    private string $_createDate;
+    private string|null $_createDate;
 
-    public function getId(): int
+    public function getId(): int|null
     {
         return $this->_id;
     }
 
-    public function setId(int $id)
+    public function setId(int $id): Car
     {
         $this->_id = $id;
+        return $this;
     }
 
     public function getMake(): string
@@ -31,9 +32,10 @@ class Car
         return $this->_make;
     }
 
-    public function setMake(string $make)
+    public function setMake(string $make): Car
     {
         $this->_make = $make;
+        return $this;
     }
 
     public function getModel(): string
@@ -41,9 +43,10 @@ class Car
         return $this->_model;
     }
 
-    public function setModel(string $model)
+    public function setModel(string $model): Car
     {
         $this->_model = $model;
+        return $this;
     }
 
     public function getColor(): string
@@ -51,46 +54,97 @@ class Car
         return $this->_color;
     }
 
-    public function setColor(string $color)
+    public function setColor(string $color): Car
     {
         $this->_color = $color;
+        return $this;
     }
 
-    public function getCreateDate(): Datetime
+    public function getCreateDate(): Datetime|null
     {
-        $datetime = new DateTime(datetime: $this->_createDate);
-        return $datetime;
+        $datetime = $this->_createDate;
+        if (gettype($datetime) === 'NULL') {
+            return null;
+        }
+        return new DateTime(datetime: $this->_createDate);
     }
 
-
-    /**
-     * Constructor, where database connection of an object is created
-     */
-    public function __construct()
-    {
+    private function __construct(
+        string $make,
+        string $model,
+        string $color,
+        int|null $id = null,
+        string|null $createDate = null
+    ) {
+        $this->_id = $id;
         $this->_conn = Database::connect();
+        $this->_make = $make;
+        $this->_model = $model;
+        $this->_color = $color;
+        $this->_createDate = $createDate;
     }
 
     /**
-     * Function closing objects database connection
+     * Function closing objects database connection.
      */
-    public function closeConn()
+    public function closeConn(): void
     {
         $this->_conn = null;
     }
 
     /**
-     * Function returning objects data as associative array
+     * Function for saving object to database.
      */
-    public function getData(): array
+    public function save(): bool
     {
-        return array();
+        // work in progress
+        return false;
     }
 
     /**
-     * Work in progress
+     * Function for deleting object from database.
      */
-    public static function getAll(): array
+    public function delete(): bool
+    {
+        // work in progress
+        return false;
+    }
+
+    /**
+     * Function returning objects data as associative array.
+     */
+    public function getData(): array
+    {
+        return array(
+            'id' => $this->_id,
+            'make' => $this->_make,
+            'model' => $this->_model,
+            'color' => $this->_color,
+            'createDate' => $this->getCreateDate(),
+        );
+    }
+
+    /**
+     * Function for creating new Car object.
+     */
+    public static function create(string $make, string $model, string $color): Car
+    {
+        $args = array($make, $model, $color);
+        foreach ($args as $value) {
+            if (strlen($value) > 255) {
+                throw new Exception(
+                    message: 'Data field values must not be longer than 255 characters',
+                    code: 422,
+                );
+            }
+        }
+        return new Car(make: $make, model: $model, color: $color);
+    }
+
+    /**
+     * Function returning all objects from database.
+     */
+    public static function findAll(): array
     {
         $conn = Database::connect();
         $tableName = Car::TABLE_NAME;
@@ -102,12 +156,39 @@ class Car
 
         if ($stmt->rowCount() > 0) {
             while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                array_push($objArr, $row);
+                $obj = new Car(
+                    make: $row['make'],
+                    model: $row['model'],
+                    color: $row['color'],
+                    id: intval(value: $row['id']),
+                    createDate: $row['create_date'],
+                );
+                array_push($objArr, $obj);
             }
         }
         $stmt = null;
         $conn = null;
-
         return $objArr;
+    }
+
+    /**
+     * Function retrieving single Car from database by id.
+     */
+    public static function find(int $id): Car
+    {
+        $conn = Database::connect();
+        $tableName = Car::TABLE_NAME;
+        $query = "SELECT * FROM {$tableName} WHERE id = :id;";
+        $stmt = $conn->prepare(query: $query);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $data = $stmt->fetch(PDO::FETCH_ASSOC);
+        return new Car(
+            make: $data['make'],
+            model: $data['model'],
+            color: $data['color'],
+            id: intval(value: $data['id']),
+            createDate: $data['create_date'],
+        );
     }
 }
