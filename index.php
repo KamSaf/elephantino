@@ -2,7 +2,7 @@
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/utils/Utils.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/src/utils/Utils.php';
 
 echo json_encode(getUrlParams());
 
