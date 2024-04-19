@@ -133,7 +133,8 @@ class Car
         foreach ($args as $value) {
             if (strlen($value) > 255) {
                 throw new Exception(
-                    message: 'Data field values must not be longer than 255 characters',
+                    message: 'Data field values must not be
+                                longer than 255 characters',
                     code: 422,
                 );
             }
