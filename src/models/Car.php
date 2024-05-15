@@ -1,7 +1,11 @@
 <?php
-
+namespace Src\Models;
 require_once $_SERVER['DOCUMENT_ROOT'] . '/src/utils/Database.php';
 
+use Src\Utils\Database;
+use PDO;
+use Exception;
+use DateTime;
 
 /**
  * Model class representing cars table in the database.
@@ -9,7 +13,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/src/utils/Database.php';
 class Car
 {
     const TABLE_NAME = 'cars';
-    private PDO $_conn;
+    private PDO|null $_conn;
     private int|null $_id;
     private string $_make;
     private string $_model;

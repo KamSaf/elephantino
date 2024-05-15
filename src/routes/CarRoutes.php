@@ -1,8 +1,8 @@
 <?php
-
+namespace Src\Routes;
 require_once $_SERVER['DOCUMENT_ROOT'] . '/src/utils/UrlRoute.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/src/controllers/CarController.php';
 
+use Src\Utils\UrlRoute;
 
 $carRoutes = array(
     new UrlRoute(

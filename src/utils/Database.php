@@ -1,4 +1,9 @@
 <?php
+namespace Src\Utils;
+
+use PDO;
+use PDOException;
+
 class Database
 {
     const HOST = '172.17.0.4';

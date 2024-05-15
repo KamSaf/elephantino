@@ -1,6 +1,8 @@
 <?php
-
+namespace Src\Controllers;
 require_once $_SERVER['DOCUMENT_ROOT'] . '/src/models/Car.php';
+
+use Src\Models\Car;
 
 class CarController
 {

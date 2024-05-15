@@ -1,4 +1,7 @@
 <?php
+namespace Src\Utils;
+
+use Exception; 
 
 class UrlRoute
 {
@@ -46,7 +49,10 @@ class UrlRoute
         try {
             call_user_func(callback: $this->_controller);
         } catch (Exception $e) {
-            throw new Exception(message: "Invalid callable function provided.", code: 404);
+            throw new Exception(
+                message: "Invalid callable function provided.",
+                code: 404
+            );
         }
     }
 }
