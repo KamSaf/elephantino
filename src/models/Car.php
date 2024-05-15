@@ -145,10 +145,17 @@ class Car
     /**
      * Function returning all objects from database.
      */
-    public static function findAll(): array
+    public static function findAll(string | null $filter = null): array
     {
+        $available_filters = array("make", "model", "color");
         $conn = Database::connect();
         $tableName = Car::TABLE_NAME;
+        if ($filter) {
+            if (!in_array($filter, $available_filters)) {
+                throw new Exception(message: "Filter {$filter} not available.");
+            }
+            $query = "SELECT * FROM {$tableName} WHERE {$filter}={$filter};";
+        }
         $query = "SELECT * FROM {$tableName};";
 
         $stmt = $conn->prepare($query);
@@ -171,7 +178,7 @@ class Car
         $conn = null;
         return $objArr;
     }
-
+    
     /**
      * Function retrieving single Car from database by id.
      */

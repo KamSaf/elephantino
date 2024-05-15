@@ -18,19 +18,35 @@ class UrlRoute
     }
 
     /**
-     * Verify whether given url address corresponds
+     * Verify whether given URL address corresponds
      * to the objects regex address pattern
      */
     public function verifyUrl(string $url): bool
     {
-        return false;
+        if (!preg_match($this->_urlReg, $url)) {
+            return false;
+        }
+        return true;
     }
+
+    /**
+     * Veryfying if request HTTP method is allowed in this route
+     */
+    public function verifyMethod(string $method): bool
+    {
+        return in_array(needle: $method, haystack: $this->_httpMethods);
+    }
+
 
     /**
      * Function calling assigned to the object
      */
     public function callController()
     {
-        call_user_func(callback: $this->_controller);
+        try {
+            call_user_func(callback: $this->_controller);
+        } catch (Exception $e) {
+            throw new Exception(message: "Invalid callable function provided.", code: 404);
+        }
     }
 }
