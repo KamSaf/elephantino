@@ -474,3 +474,4 @@ composer.lock
 *.scss.map
 phpcs.xml
 test
+todo.txt
