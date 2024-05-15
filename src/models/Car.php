@@ -1,11 +1,4 @@
 <?php
-namespace Src\Models;
-require_once $_SERVER['DOCUMENT_ROOT'] . '/src/utils/Database.php';
-
-use Src\Utils\Database;
-use PDO;
-use Exception;
-use DateTime;
 
 /**
  * Model class representing cars table in the database.
@@ -119,13 +112,13 @@ class Car
      */
     public function getData(): array
     {
-        return array(
+        return [
             'id' => $this->getId(),
             'make' => $this->getMake(),
             'model' => $this->getModel(),
             'color' => $this->getColor(),
             'createDate' => $this->getCreateDate(),
-        );
+        ];
     }
 
     /**
@@ -133,7 +126,7 @@ class Car
      */
     public static function create(string $make, string $model, string $color): Car
     {
-        $args = array($make, $model, $color);
+        $args = [$make, $model, $color];
         foreach ($args as $value) {
             if (strlen($value) > 255) {
                 throw new Exception(
@@ -151,7 +144,7 @@ class Car
      */
     public static function findAll(string | null $filter = null): array
     {
-        $available_filters = array("make", "model", "color");
+        $available_filters = ["make", "model", "color"];
         $conn = Database::connect();
         $tableName = Car::TABLE_NAME;
         if ($filter) {

@@ -1,17 +1,20 @@
 <?php
-namespace Src\Controllers;
-require_once $_SERVER['DOCUMENT_ROOT'] . '/src/models/Car.php';
-
-use Src\Models\Car;
 
 class CarController
 {
+    public static function root()
+    {
+        UrlRoute::endpoints();
+        exit;
+    }
+
     public static function getAllCars()
     {
-        $jsonData = array();
+        $jsonData = [];
         foreach (Car::findAll() as $car) {
             array_push($jsonData, $car->getData());
         }
         echo json_encode($jsonData);
+        exit;
     }
 }

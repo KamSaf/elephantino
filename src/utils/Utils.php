@@ -1,5 +1,4 @@
 <?php
-namespace Src\Utils;
 
 function getUrlParams(): array
 {

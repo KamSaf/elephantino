@@ -1,22 +1,19 @@
 <?php
-namespace Src\Utils;
-
-use Exception; 
 
 class UrlRoute
 {
+    public string $pathInfo;
     private string $_urlReg;
-    private array $_httpMethods;
     private $_controller;
 
 
     public function __construct(
+        string $pathInfo,
         string $urlReg,
-        callable $controller,
-        array $httpMethods
+        array $controller,
     ) {
+        $this->pathInfo = $pathInfo;
         $this->_urlReg = $urlReg;
-        $this->_httpMethods = $httpMethods;
         $this->_controller = $controller;
     }
 
@@ -26,33 +23,61 @@ class UrlRoute
      */
     public function verifyUrl(string $url): bool
     {
-        if (!preg_match($this->_urlReg, $url)) {
-            return false;
-        }
-        return true;
+        return preg_match($this->_urlReg, $url);
     }
 
     /**
-     * Veryfying if request HTTP method is allowed in this route
+     * Veryfying if used request HTTP method is allowed in this route
      */
     public function verifyMethod(string $method): bool
     {
-        return in_array(needle: $method, haystack: $this->_httpMethods);
+        return array_key_exists($method, $this->_controller);
     }
 
-
     /**
-     * Function calling assigned to the object
+     * Function calling controller assigned to the object
      */
-    public function callController()
+    public function callController(string $method): void
     {
         try {
-            call_user_func(callback: $this->_controller);
+            call_user_func(callback: $this->_controller[$method]);
         } catch (Exception $e) {
             throw new Exception(
-                message: "Invalid callable function provided.",
-                code: 404
+                message: 'Invalid callable function provided.',
             );
         }
     }
+
+    public static function error(string $message, int $code): void
+    {
+        echo json_encode(['code' => $code, 'detail' => $message]);
+    }
+
+    public static function endpoints(): string
+    {
+        echo json_encode(
+            [
+                'Available endpoints' => [
+                    'GET' => [
+                        '/cars/' => 'Fetch all cars from database',
+                        '/cars/:id/' => 'Fetch car by id',
+                        '/cars_by_make/:make/' => 'Fetch cars by Make',
+                        '/cars_by_model/:model/' => 'Fetch cars by Model',
+                        '/cars_by_color/:color/' => 'Fetch cars by Color',
+                    ],
+                    'POST' => [
+                        '/cars/' => 'Save new car to the database',
+                    ],
+                    'PUT' => [
+                        '/cars/:id/' => 'Override car data in database',
+                    ],
+                    'DELETE' => [
+                        '/cars/:id/' => 'Delete car from database',
+                    ]
+                ]
+            ]
+        );
+        return 'dupa';
+    }
+    
 }

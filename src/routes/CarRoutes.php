@@ -1,13 +1,18 @@
 <?php
-namespace Src\Routes;
-require_once $_SERVER['DOCUMENT_ROOT'] . '/src/utils/UrlRoute.php';
 
-use Src\Utils\UrlRoute;
-
-$carRoutes = array(
+$carRoutes = [
     new UrlRoute(
-        urlReg: "/\/api\/cars$/",
-        controller: ['CarController', 'getAllCars'],
-        httpMethods: ["GET"]
+        pathInfo: '/',
+        urlReg: "/\/$/",
+        controller: [
+            "GET" => ['CarController', 'root'] 
+        ],
     ),
-);
+    new UrlRoute(
+        pathInfo: '/api/cars',
+        urlReg: "/\/api\/cars$/",
+        controller: [
+            "GET" => ['CarController', 'getAllCars'] 
+        ],
+    ),
+];
