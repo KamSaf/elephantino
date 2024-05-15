@@ -116,10 +116,10 @@ class Car
     public function getData(): array
     {
         return array(
-            'id' => $this->_id,
-            'make' => $this->_make,
-            'model' => $this->_model,
-            'color' => $this->_color,
+            'id' => $this->getId(),
+            'make' => $this->getMake(),
+            'model' => $this->getModel(),
+            'color' => $this->getColor(),
             'createDate' => $this->getCreateDate(),
         );
     }

@@ -1,5 +1,13 @@
 <?php
 
-// require_once $_SERVER['DOCUMENT_ROOT'] . '/src/utils/Utils.php';
-// require_once $_SERVER['DOCUMENT_ROOT'] . '/src/models/Car.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/src/routes/CarRoutes.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/src/utils/UrlRoute.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/src/controllers/CarController.php';
+
+
+$carRoutes = array(
+    new UrlRoute(
+        urlReg: "/\/api\/cars$/",
+        controller: ['CarController', 'getAllCars'],
+        httpMethods: ["GET"]
+    ),
+);
