@@ -2,13 +2,13 @@
 
 class CarController
 {
-    public static function root()
+    public static function root(): void
     {
         UrlRoute::endpoints();
         exit;
     }
 
-    public static function getAllCars()
+    public static function getAllCars(): void
     {
         $jsonData = [];
         foreach (Car::findAll() as $car) {
@@ -17,4 +17,12 @@ class CarController
         echo json_encode($jsonData);
         exit;
     }
+
+    public static function getCar(): void
+    {
+        $id = (int) getUrl()[2];
+        echo json_encode(Car::find(id: $id)->getData());
+        exit;
+    }
+
 }

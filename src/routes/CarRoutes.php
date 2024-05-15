@@ -5,7 +5,7 @@ $carRoutes = [
         pathInfo: '/',
         urlReg: "/\/$/",
         controller: [
-            "GET" => ['CarController', 'root'] 
+            "GET" => ['CarController', 'root']
         ],
     ),
     new UrlRoute(
@@ -15,4 +15,12 @@ $carRoutes = [
             "GET" => ['CarController', 'getAllCars'] 
         ],
     ),
+    new UrlRoute(
+        pathInfo: '/api/cars/:id',
+        urlReg: "/\/api\/cars\/([0-9]+)$/",
+        controller: [
+            "GET" => ['CarController', 'getCar'] 
+        ],
+    ),
+
 ];

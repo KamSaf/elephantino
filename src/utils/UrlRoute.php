@@ -77,7 +77,7 @@ class UrlRoute
                 ]
             ]
         );
-        return 'dupa';
+        exit;
     }
     
 }

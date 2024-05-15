@@ -1,10 +1,9 @@
 <?php
 
-function getUrlParams(): array
+function getUrl(): array
 {
     $url = $_SERVER['REQUEST_URI'];
-    $arr = explode('/', substr($url, 1, strlen($url)));
-    return $arr;
+    return explode('/', substr($url, 1, strlen($url)));
 }
 
 function echoEndpointsList(): void

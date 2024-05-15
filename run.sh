@@ -1,12 +1,16 @@
 #!/usr/bin/bash
 
-if [ "$#" -ne 2 ]; then
-    echo "Requires 2 positional arguments: <host_address> <port>"
-    exit 1
+host_address="localhost"
+port="8000"
+
+if ! [ -z "$1" ]; then
+    host_address="$1"
 fi
 
-host_address=$1
-port=$2
+if ! [ -z "$2" ]; then
+    port="$2"
+fi
+
 
 if [ ${#port} -ne 4 ]; then
     echo "Port must be 4 digits long"
