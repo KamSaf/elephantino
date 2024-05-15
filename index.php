@@ -9,15 +9,10 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/src/controllers/CarController.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/src/routes/CarRoutes.php';
 use UrlRoute;
 
-$routes = array_merge(
-    $carRoutes,
-);
-
 $url = $_SERVER['REQUEST_URI'];
 $method = $_SERVER['REQUEST_METHOD'];
-$routeFound = false;
 
-foreach ($routes as $route) {
+foreach ($carRoutes as $route) {
     if ($route->verifyUrl(url: $url)) {
         if (!$route->verifyMethod(method: $method)) {
             UrlRoute::error(message: 'Method not allowed.', code: 405);
@@ -26,7 +21,4 @@ foreach ($routes as $route) {
         $route->callController(method: $method);
     }
 }
-
-if (!$routeFound) {
-    UrlRoute::error(message: 'Endpoint not found.', code: 404);
-}
+UrlRoute::error(message: 'Endpoint not found.', code: 404);
