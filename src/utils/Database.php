@@ -2,7 +2,7 @@
 
 class Database
 {
-    const HOST = '172.17.0.4';
+    const HOST = '172.17.0.2';
     const DATABASE_NAME = 'rest_api';
     const USERNAME = 'php';
     const PASSWORD = 'password';

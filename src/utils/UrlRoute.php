@@ -39,10 +39,11 @@ class UrlRoute
     public function callController(string $method): void
     {
         try {
-            call_user_func(callback: $this->_controller[$method]);
+            echo call_user_func(callback: $this->_controller[$method]);
+            exit;
         } catch (Exception $e) {
             throw new Exception(
-                message: 'Invalid callable function provided.',
+                message: $e->getMessage(),
             );
         }
     }

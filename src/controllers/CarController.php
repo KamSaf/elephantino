@@ -2,9 +2,9 @@
 
 class CarController
 {
-    public static function root(): void
+    public static function root(): string
     {
-        echo json_encode(
+        return json_encode(
             [
                 'code' => 200,
                 'Available endpoints' => [
@@ -27,10 +27,9 @@ class CarController
                 ]
             ]
         );
-        exit;
     }
 
-    public static function getAllCars(): void
+    public static function getAllCars(): string
     {
         $url = getUrl();
         if (array_key_exists(2, $url) && array_key_exists(3, $url)) {
@@ -45,11 +44,10 @@ class CarController
         foreach ($cars as $car) {
             array_push($jsonData['data'], $car->getData());
         }
-        echo json_encode($jsonData);
-        exit;
+        return json_encode($jsonData);
     }
 
-    public static function getCar(): void
+    public static function getCar(): string
     {
         $url = getUrl();
         if (array_key_exists(2, $url)) {
@@ -66,8 +64,6 @@ class CarController
                 UrlRoute::error($e->getMessage(), code: 404);
             }
         }
-        echo json_encode($jsonData);
-        exit;
+        return json_encode($jsonData);
     }
-
 }
