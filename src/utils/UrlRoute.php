@@ -51,34 +51,5 @@ class UrlRoute
     {
         echo json_encode(['code' => $code, 'detail' => $message]);
         exit;
-    }
-
-    public static function endpoints(): string
-    {
-        echo json_encode(
-            [
-                'code' => 200,
-                'Available endpoints' => [
-                    'GET' => [
-                        '/cars/' => 'Fetch all cars from database',
-                        '/cars/:id/' => 'Fetch car by id',
-                        '/cars_by_make/:make/' => 'Fetch cars by Make',
-                        '/cars_by_model/:model/' => 'Fetch cars by Model',
-                        '/cars_by_color/:color/' => 'Fetch cars by Color',
-                    ],
-                    'POST' => [
-                        '/cars/' => 'Save new car to the database',
-                    ],
-                    'PUT' => [
-                        '/cars/:id/' => 'Override car data in database',
-                    ],
-                    'DELETE' => [
-                        '/cars/:id/' => 'Delete car from database',
-                    ]
-                ]
-            ]
-        );
-        exit;
-    }
-    
+    }    
 }
