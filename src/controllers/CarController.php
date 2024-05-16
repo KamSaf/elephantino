@@ -10,11 +10,17 @@ class CarController
 
     public static function getAllCars(): void
     {
+        $url = getUrl();
+        if (array_key_exists(2, $url) && array_key_exists(3, $url)) {
+            $cars = Car::findAll(filter: $url[2], value: $url[3]);
+        } else {
+            $cars = Car::findAll();
+        }
         $jsonData = [
             'code' => 200,
             'data' => []
         ];
-        foreach (Car::findAll() as $car) {
+        foreach ($cars as $car) {
             array_push($jsonData['data'], $car->getData());
         }
         echo json_encode($jsonData);

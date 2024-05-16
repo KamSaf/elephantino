@@ -142,19 +142,21 @@ class Car
     /**
      * Function returning all objects from database.
      */
-    public static function findAll(string | null $filter = null): array
+    public static function findAll(string | null $filter = null, string | null $value = null): array
     {
         $available_filters = ["make", "model", "color"];
         $conn = Database::connect();
         $tableName = Car::TABLE_NAME;
-        if ($filter) {
+        
+        if ($filter && $value) {
+            $value = str_replace('-', ' ', $value);
             if (!in_array($filter, $available_filters)) {
                 throw new Exception(message: "Filter {$filter} not available.");
             }
-            $query = "SELECT * FROM {$tableName} WHERE {$filter}={$filter};";
+            $query = "SELECT * FROM {$tableName} WHERE {$filter}='{$value}';";
+        } else {
+            $query = "SELECT * FROM {$tableName};";
         }
-        $query = "SELECT * FROM {$tableName};";
-
         $stmt = $conn->prepare($query);
         $stmt->execute();
         $objArr = [];
