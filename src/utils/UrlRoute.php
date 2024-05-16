@@ -2,18 +2,17 @@
 
 class UrlRoute
 {
-    public string $pathInfo;
+    private string $_pathInfo;
     private string $_urlReg;
     private $_controller;
 
 
     public function __construct(
         string $pathInfo,
-        string $urlReg,
         array $controller,
     ) {
         $this->pathInfo = $pathInfo;
-        $this->_urlReg = $urlReg;
+        $this->_urlReg = addrToReg(address: $pathInfo);
         $this->_controller = $controller;
     }
 

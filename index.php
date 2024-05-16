@@ -19,7 +19,6 @@ foreach ($carRoutes as $route) {
         if (!$route->verifyMethod(method: $method)) {
             UrlRoute::error(message: 'Method not allowed.', code: 405);
         }
-        $routeFound = true;
         $route->callController(method: $method);
     }
 }
