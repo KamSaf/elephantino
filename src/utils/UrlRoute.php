@@ -51,12 +51,14 @@ class UrlRoute
     public static function error(string $message, int $code): void
     {
         echo json_encode(['code' => $code, 'detail' => $message]);
+        exit;
     }
 
     public static function endpoints(): string
     {
         echo json_encode(
             [
+                'code' => 200,
                 'Available endpoints' => [
                     'GET' => [
                         '/cars/' => 'Fetch all cars from database',

@@ -2,12 +2,12 @@
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/src/utils/Database.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/src/models/Car.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/src/utils/UrlRoute.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/src/utils/Utils.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/src/controllers/CarController.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/src/routes/CarRoutes.php';
+require_once __DIR__ . '/src/utils/Database.php';
+require_once __DIR__ . '/src/models/Car.php';
+require_once __DIR__ . '/src/utils/UrlRoute.php';
+require_once __DIR__ . '/src/utils/Utils.php';
+require_once __DIR__ . '/src/controllers/CarController.php';
+require_once __DIR__ . '/src/routes/CarRoutes.php';
 
 use UrlRoute;
 

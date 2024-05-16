@@ -10,9 +10,12 @@ class CarController
 
     public static function getAllCars(): void
     {
-        $jsonData = [];
+        $jsonData = [
+            'code' => 200,
+            'data' => []
+        ];
         foreach (Car::findAll() as $car) {
-            array_push($jsonData, $car->getData());
+            array_push($jsonData['data'], $car->getData());
         }
         echo json_encode($jsonData);
         exit;
@@ -20,8 +23,22 @@ class CarController
 
     public static function getCar(): void
     {
-        $id = (int) getUrl()[2];
-        echo json_encode(Car::find(id: $id)->getData());
+        $url = getUrl();
+        if (array_key_exists(2, $url)) {
+            if (!is_numeric($url[2])) {
+                UrlRoute::error('Invalid id parameter type.', code: 422);
+            }
+            $id = (int)$url[2];
+            try {
+                $jsonData = [
+                    'code' => 200,
+                    'data' => Car::find(id: $id)->getData()
+                ];
+            } catch (Exception $e) {
+                UrlRoute::error($e->getMessage(), code: 404);
+            }
+        }
+        echo json_encode($jsonData);
         exit;
     }
 

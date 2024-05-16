@@ -188,6 +188,9 @@ class Car
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
         $data = $stmt->fetch(PDO::FETCH_ASSOC);
+        if (!$data) {
+            throw new Exception(message: 'Object not found', code: 404);
+        }
         return new Car(
             make: $data['make'],
             model: $data['model'],
