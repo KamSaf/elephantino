@@ -12,17 +12,29 @@ class App
     private static array $_appRoutes = []; 
     private array $_componentsPaths = COMPONENTS_PATHS;
     private array $_components = COMPONENTS;
+    private string $_header;
+    private static array $_availableHeaders = ['json'];
 
+
+    public function getHeader(): string
+    {
+        return $this->_header;
+    }
+
+    public function setHeader(string $header = 'json'): void
+    {
+        if (!in_array($header, App::$_availableHeaders)) {
+            throw new \InvalidArgumentException('This header type is not supported');
+        }
+        header("Content-Type: application/{$header}");
+    }
+    
     public function __construct()
     {
         $this->_loadComponents();
     }
-
-    public static function registerRoutes(array $routes): void
-    {
-        App::$_appRoutes = array_merge(App::$_appRoutes, $routes);
-    }
-
+    
+    
     private function _loadComponents(): void
     {
         global $rootPath;
@@ -33,12 +45,8 @@ class App
             }
         }
     }
-
-    public function setHeader(): void
-    {
-        header('Content-Type: application/json');
-    }
-
+    
+    
     public function run(): void
     {
         $url = $_SERVER['REQUEST_URI'];
@@ -53,5 +61,10 @@ class App
             }
         }
         UrlRoute::error(message: 'Endpoint not found.', code: 404);
+    }
+
+    public static function registerRoutes(array $routes): void
+    {
+        App::$_appRoutes = array_merge(App::$_appRoutes, $routes);
     }
 }
