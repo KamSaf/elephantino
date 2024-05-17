@@ -37,7 +37,7 @@ class CarController
                 $cars = Car::findAll(filter: $url[2], value: $url[3]);
             } else {
                 $cars = Car::findAll();
-            }    
+            }
         } catch (Exception $e) {
             UrlRoute::error(message: $e->getMessage(), code: $e->getCode());
         }

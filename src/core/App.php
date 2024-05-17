@@ -9,7 +9,7 @@ require_once $rootPath . '/src/core/UrlRoute.php';
 
 class App
 {
-    private static array $_appRoutes = []; 
+    private static array $_appRoutes = [];
     private array $_componentsPaths = COMPONENTS_PATHS;
     private array $_components = COMPONENTS;
     private string $_header;
@@ -28,13 +28,13 @@ class App
         }
         header("Content-Type: application/{$header}");
     }
-    
+
     public function __construct()
     {
         $this->_loadComponents();
     }
-    
-    
+
+
     private function _loadComponents(): void
     {
         global $rootPath;
@@ -45,13 +45,13 @@ class App
             }
         }
     }
-    
-    
+
+
     public function run(): void
     {
         $url = $_SERVER['REQUEST_URI'];
         $method = $_SERVER['REQUEST_METHOD'];
-        
+
         foreach (App::$_appRoutes as $route) {
             if ($route->verifyUrl(url: $url)) {
                 if (!$route->verifyMethod(method: $method)) {
