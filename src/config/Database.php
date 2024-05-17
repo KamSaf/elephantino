@@ -21,7 +21,7 @@ class Database
             );
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
-            echo 'Connection Error: ' . $e->getMessage();
+            throw new Exception(message: "Cannot connect to database", code: 500);
         }
 
         return $conn;

@@ -148,9 +148,6 @@ class Car
     ): array {
         $available_filters = ["make", "model", "color"];
         $conn = Database::connect();
-        if (!$conn) {
-            throw new Exception("Database not connected");
-        }
         $tableName = Car::TABLE_NAME;
         
         if ($filter && $value) {

@@ -4,7 +4,6 @@ $rootPath = $_SERVER['DOCUMENT_ROOT'];
 
 require_once $rootPath . '/src/config/Components.php';
 require_once $rootPath . '/src/config/Database.php';
-require_once $rootPath . '/src/core/utils/Utils.php';
 require_once $rootPath . '/src/core/UrlRoute.php';
 
 
