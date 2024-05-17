@@ -17,7 +17,8 @@ App::registerRoutes(
         new UrlRoute(
             pathInfo: '/api/cars/<int:id>',
             controller: [
-                "GET" => ['CarController', 'getCar'] 
+                "GET" => ['CarController', 'getCar'],
+                "DELETE" => ['CarController', 'deleteCar'] 
             ],
         ),
         new UrlRoute(

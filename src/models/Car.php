@@ -101,10 +101,17 @@ class Car
     /**
      * Function for deleting object from database.
      */
-    public function delete(): bool
+    public function delete(): Car
     {
-        // work in progress
-        return false;
+        $conn = $this->_conn;
+        $tableName = Car::TABLE_NAME;
+        $query = "DELETE FROM {$tableName} WHERE id=?;";
+        $stmt = $conn->prepare($query);
+        $stmt->execute([$this->getId()]);
+        $stmt = null;
+        $conn = null;
+        $this->closeConn();
+        return $this;
     }
 
     /**

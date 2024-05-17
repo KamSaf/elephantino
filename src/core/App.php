@@ -51,7 +51,6 @@ class App
     {
         $url = $_SERVER['REQUEST_URI'];
         $method = $_SERVER['REQUEST_METHOD'];
-
         foreach (App::$_appRoutes as $route) {
             if ($route->verifyUrl(url: $url)) {
                 if (!$route->verifyMethod(method: $method)) {

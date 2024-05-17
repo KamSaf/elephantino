@@ -70,4 +70,25 @@ class CarController
         }
         return json_encode($jsonData);
     }
+
+    public static function deleteCar(): string
+    {
+        $url = UrlRoute::getUrl();
+        if (array_key_exists(2, $url)) {
+            if (!is_numeric($url[2])) {
+                UrlRoute::error('Invalid id parameter type.', code: 422);
+            }
+            $id = (int)$url[2];
+            try {
+                $car = Car::find(id: $id)->delete();;
+            } catch (Exception $e) {
+                UrlRoute::error($e->getMessage(), code: 404);
+            }
+            $jsonData = [
+                'code' => 204,
+                'data' => "Car on index " . $car->getId() . " deleted."
+            ];
+        }
+        return json_encode($jsonData);
+    }
 }
