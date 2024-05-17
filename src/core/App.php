@@ -29,7 +29,8 @@ class App
         global $rootPath;
         foreach ($this->_components as $compType => $compFiles) {
             foreach ($compFiles as $compFile) {
-                include_once $rootPath . $this->_componentsPaths[$compType] . $compFile;
+                $path = $rootPath . $this->_componentsPaths[$compType] . $compFile;
+                include_once $path;
             }
         }
     }

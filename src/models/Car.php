@@ -142,8 +142,10 @@ class Car
     /**
      * Function returning all objects from database.
      */
-    public static function findAll(string | null $filter = null, string | null $value = null): array
-    {
+    public static function findAll(
+        string | null $filter = null,
+        string | null $value = null
+    ): array {
         $available_filters = ["make", "model", "color"];
         $conn = Database::connect();
         if (!$conn) {
