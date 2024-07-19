@@ -6,7 +6,6 @@ class UrlRoute
     private string $_urlReg;
     private $_controller;
 
-
     public function __construct(
         string $pathInfo,
         array $controller,
@@ -48,7 +47,7 @@ class UrlRoute
         }
     }
 
-    public static function error(string $message, int $code): void
+    public static function logError(string $message, int $code): void
     {
         echo json_encode(['code' => $code, 'detail' => $message]);
         exit;
@@ -71,6 +70,6 @@ class UrlRoute
                 $reg[$i] = "([0-9]+)";
             }
         }
-        return "/^" . implode(separator: '\/', array: $reg) . "(?:\/)?$/";
+        return "/^" . implode(separator: '\/', array:$reg) . "(?:\/)?$/";
     }
 }
