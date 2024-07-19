@@ -1,7 +1,7 @@
 <?php
 
 $rootPath = $_SERVER['DOCUMENT_ROOT'];
-require "{$rootPath}/src/core/UrlRoute.php";
+require_once "{$rootPath}/src/UrlRoute.php";
 
 trait RoutesTrait
 {

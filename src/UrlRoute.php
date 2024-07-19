@@ -47,12 +47,6 @@ class UrlRoute
         }
     }
 
-    public static function logError(string $message, int $code): void
-    {
-        echo json_encode(['code' => $code, 'detail' => $message]);
-        exit;
-    }
-
     public static function getUrl(): array
     {
         $url = $_SERVER['REQUEST_URI'];
