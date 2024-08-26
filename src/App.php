@@ -3,12 +3,16 @@
 $rootPath = $_SERVER['DOCUMENT_ROOT'];
 require_once "{$rootPath}/src/traits/RoutesTrait.php";
 require_once "{$rootPath}/src/utils/Response.php";
+require_once "{$rootPath}/src/Router.php";
 
 class App
 {
     use RoutesTrait;
+    // private array $_appRoutes = ["root" => null];
+
     public function run(): void
     {
+        // $this->_appRoutes["root"] = $this->_routes;
         $url = $_SERVER['REQUEST_URI'];
         $method = $_SERVER['REQUEST_METHOD'];
         foreach ($this->_routes as $route) {
@@ -21,6 +25,11 @@ class App
                 $route->callController(method: $method);
             }
         }
-        UrlRoute::logError(message: 'Endpoint not found.', code: 404);
+        Response::json(body: ["message" => 'Endpoint not found.'], code: 404);
+    }
+
+    public function include(Router $router): void
+    {
+
     }
 }

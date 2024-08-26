@@ -1,11 +1,17 @@
 <?php
 
+/**
+ * Class containing functions serving as different kinds of HTTP responses
+ */
 class Response
 {
-    public static function json(mixed $body, int $code = 200): string
+    /**
+     * Response in a JSON format
+     */
+    public static function json(mixed $body, int $code = 200): void
     {
         header("Content-Type: application/json");
-        return json_encode(["code" => $code, "body" => $body]);
+        echo json_encode(["code" => $code, "body" => $body]);
+        exit();
     }
-
 }

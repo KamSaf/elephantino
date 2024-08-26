@@ -38,7 +38,7 @@ class UrlRoute
     public function callController(string $method): void
     {
         try {
-            echo call_user_func(callback: $this->_controller[$method]);
+            call_user_func(callback: $this->_controller[$method]);
             exit;
         } catch (Exception $e) {
             throw new Exception(
@@ -47,12 +47,18 @@ class UrlRoute
         }
     }
 
+    /**
+     * Function getting splitted URL
+     */
     public static function getUrl(): array
     {
         $url = $_SERVER['REQUEST_URI'];
         return explode('/', substr($url, 1, strlen($url)));
     }
 
+    /**
+     * Function parsing URL address to regular expression
+     */
     public static function addrToReg(string $address): string
     {
         $reg = explode('/', $address);
