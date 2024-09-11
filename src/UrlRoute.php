@@ -6,12 +6,11 @@ class UrlRoute
     private string $_urlReg;
     private $_controller;
 
-
     public function __construct(
         string $pathInfo,
         array $controller,
     ) {
-        $this->pathInfo = $pathInfo;
+        $this->_pathInfo = $pathInfo;
         $this->_urlReg = UrlRoute::addrToReg(address: $pathInfo);
         $this->_controller = $controller;
     }
@@ -39,7 +38,7 @@ class UrlRoute
     public function callController(string $method): void
     {
         try {
-            echo call_user_func(callback: $this->_controller[$method]);
+            call_user_func(callback: $this->_controller[$method]);
             exit;
         } catch (Exception $e) {
             throw new Exception(
@@ -48,18 +47,18 @@ class UrlRoute
         }
     }
 
-    public static function error(string $message, int $code): void
-    {
-        echo json_encode(['code' => $code, 'detail' => $message]);
-        exit;
-    }
-
+    /**
+     * Function getting splitted URL
+     */
     public static function getUrl(): array
     {
         $url = $_SERVER['REQUEST_URI'];
         return explode('/', substr($url, 1, strlen($url)));
     }
 
+    /**
+     * Function parsing URL address to regular expression
+     */
     public static function addrToReg(string $address): string
     {
         $reg = explode('/', $address);
