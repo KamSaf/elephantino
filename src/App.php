@@ -8,28 +8,41 @@ require_once "{$rootPath}/src/Router.php";
 class App
 {
     use RoutesTrait;
-    // private array $_appRoutes = ["root" => null];
+    private array $_appRoutes = ["root" => null];
 
-    public function run(): void
+    private function _findRoute(string $url, string $method, array $routes): void
     {
-        // $this->_appRoutes["root"] = $this->_routes;
-        $url = $_SERVER['REQUEST_URI'];
-        $method = $_SERVER['REQUEST_METHOD'];
-        foreach ($this->_routes as $route) {
-            if ($route->verifyUrl(url: $url)) {
-                if (!$route->verifyMethod(method: $method)) {
-                    Response::json(
-                        body: ["message" => 'Method not allowed.'], code: 405
-                    );
-                }
-                $route->callController(method: $method);
+        foreach ($routes as $route) {
+            if (!$route->verifyUrl(url: $url)) {
+                continue;
             }
+            if (!$route->verifyMethod(method: $method)) {
+                Response::json(
+                    body: ["message" => 'Method not allowed.'],
+                    code: 405
+                );
+            }
+            $route->callController(method: $method);
         }
         Response::json(body: ["message" => 'Endpoint not found.'], code: 404);
     }
 
-    public function include(Router $router): void
+    public function run(): void
     {
+        $url = $_SERVER['REQUEST_URI'];
+        $method = $_SERVER['REQUEST_METHOD'];
+        $routeKey = explode(separator: '/', string: $url)[1];
+        if (array_key_exists(key: $routeKey, array: $this->_appRoutes)) {
+            $routes = $this->_appRoutes[$routeKey];
+            $url = substr(string: $url, offset: strlen($routeKey) + 2) . '/';
+        } else {
+            $routes = $this->_routes;
+        }
+        $this->_findRoute(url: $url, method: $method, routes: $routes);
+    }
 
+    public function include(string $key, Router $router): void
+    {
+        $this->_appRoutes[$key] = $router->getRoutes();
     }
 }

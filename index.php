@@ -3,8 +3,19 @@
 $rootPath = $_SERVER['DOCUMENT_ROOT'];
 require_once "{$rootPath}/src/App.php";
 require_once "{$rootPath}/src/utils/Response.php";
+require_once "{$rootPath}/src/Router.php";
 
 $app = new App();
+$router = new Router();
+
+$router->get(
+    "/",
+    function () {
+        Response::json(
+            ["message" => 'Hello from the router!']
+        );
+    }
+);
 
 $app->get(
     "/",
@@ -15,4 +26,5 @@ $app->get(
     }
 );
 
+$app->include("router", $router);
 $app->run();

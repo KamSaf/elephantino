@@ -10,7 +10,7 @@ class UrlRoute
         string $pathInfo,
         array $controller,
     ) {
-        $this->pathInfo = $pathInfo;
+        $this->_pathInfo = $pathInfo;
         $this->_urlReg = UrlRoute::addrToReg(address: $pathInfo);
         $this->_controller = $controller;
     }
@@ -70,6 +70,6 @@ class UrlRoute
                 $reg[$i] = "([0-9]+)";
             }
         }
-        return "/^" . implode(separator: '\/', array:$reg) . "(?:\/)?$/";
+        return "/^" . implode(separator: '\/', array: $reg) . "(?:\/)?$/";
     }
 }
