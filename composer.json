@@ -3,6 +3,9 @@
     "description": "PHP micro web framework created for fun.",
     "type": "library",
     "license": "MIT",
+    "scripts": {
+        "dev!!": "php -S localhost:8000"
+    },
     "autoload": {
         "psr-4": {
             "Kamsaf\\Elephantino\\": "src/"
