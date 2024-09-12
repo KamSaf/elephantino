@@ -19,15 +19,15 @@ $app->get(
 );
 
 $app->get(
-    "/api/:id",
+    '/api/:id',
     function (Request $req) {
         Response::json(
-            ["message" => $req->getParams()]
+            ['message' => $req->getParams()]
         );
     }
 );
 
 
 
-$app->include("router", $router);
+$app->include('router', $router);
 $app->run();

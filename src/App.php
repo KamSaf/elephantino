@@ -8,7 +8,7 @@ require_once "{$rootPath}/src/Router.php";
 class App
 {
     use RoutesTrait;
-    private array $_appRoutes = ["root" => null];
+    private array $_appRoutes = ['root' => null];
 
     private function _findRoute(string $url, string $method, array $routes): void
     {
@@ -18,7 +18,7 @@ class App
             }
             if (!$route->verifyMethod(method: $method)) {
                 Response::json(
-                    body: ["message" => 'Method not allowed.'],
+                    body: ['message' => 'Method not allowed.'],
                     code: 405
                 );
             }
