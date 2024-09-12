@@ -16,6 +16,6 @@ Elephantino is a micro PHP web application framework created purely for fun and 
 - PHP 8.1
 
 
-<hr>
+##
 
 Created by Kamil Safaryjski 2024

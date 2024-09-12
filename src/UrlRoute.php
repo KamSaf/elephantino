@@ -37,8 +37,16 @@ class UrlRoute
      */
     public function callController(string $method): void
     {
+        $contrRefl = new ReflectionFunction($this->_controller[$method]);
+        $params = in_array(
+            needle: 'req',
+            haystack: array_map(
+                fn($el): string =>  $el->name,
+                $contrRefl->getParameters()
+            )
+        ) ? new Request(UrlRoute::_getUrlParams($this->_pathInfo)) : null;
         try {
-            call_user_func(callback: $this->_controller[$method]);
+            call_user_func($this->_controller[$method], $params);
             exit;
         } catch (Exception $e) {
             throw new Exception(
@@ -57,18 +65,37 @@ class UrlRoute
     }
 
     /**
+     * Function getting URL parameters
+     */
+    private static function _getUrlParams(string $path): array
+    {
+        $url = UrlRoute::getUrl();
+        $urlPattern = explode('/', substr($path, 1, strlen($path)));
+        if (count($urlPattern) != count($url)) {
+            return [];
+        }
+        $params = [];
+        for ($i = 0; $i < count($urlPattern); $i++) {
+            if ($urlPattern[$i][0] === ':') {
+                $params[substr(
+                    $urlPattern[$i],
+                    1,
+                    strlen($urlPattern[$i])
+                )] = $url[$i];
+            }
+        }
+        return $params;
+    }
+
+    /**
      * Function parsing URL address to regular expression
      */
     public static function addrToReg(string $address): string
     {
         $reg = explode('/', $address);
         for ($i = 0; $i < count($reg); $i++) {
-            if (str_contains(haystack: $reg[$i], needle: '<string:')) {
-                $reg[$i] = '([0-9a-zA-Z\-]+)';
-            }
-            if (str_contains(haystack: $reg[$i], needle: '<int:')) {
-                $reg[$i] = "([0-9]+)";
-            }
+            $reg[$i] = $reg[$i][0] == ':' ? '([0-9a-zA-Z\-]+)' : $reg[$i];
+            // $reg[$i] = $reg[$i] == ':int' ? '([0-9]+)' : $reg[$i];
         }
         return "/^" . implode(separator: '\/', array: $reg) . "(?:\/)?$/";
     }
