@@ -21,14 +21,14 @@ class App
                 continue;
             }
             if (!$route->verifyMethod(method: $method)) {
-                Response::json(
-                    body: ['message' => 'Method not allowed.'],
+                Response::error(
+                    message: 'Method not allowed.',
                     code: 405
                 );
             }
             $route->callController(method: $method, debug: $debug);
         }
-        Response::json(body: ["message" => 'Endpoint not found.'], code: 404);
+        Response::error(message: 'Endpoint not found.', code: 404);
     }
 
     public function run(bool $debug = false): void
