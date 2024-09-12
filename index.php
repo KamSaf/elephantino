@@ -30,4 +30,4 @@ $app->get(
 
 
 $app->include('router', $router);
-$app->run();
+$app->run(debug: true);

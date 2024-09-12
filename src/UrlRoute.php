@@ -35,7 +35,7 @@ class UrlRoute
     /**
      * Function calling controller assigned to the object
      */
-    public function callController(string $method): void
+    public function callController(string $method, bool $debug): void
     {
         $contrRefl = new ReflectionFunction($this->_controller[$method]);
         $params = in_array(
@@ -49,6 +49,9 @@ class UrlRoute
             call_user_func($this->_controller[$method], $params);
             exit;
         } catch (Exception $e) {
+            if ($debug) {
+                Response::error($e->getMessage());
+            }
             throw new Exception(
                 message: $e->getMessage(),
             );

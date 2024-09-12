@@ -10,8 +10,12 @@ class App
     use RoutesTrait;
     private array $_appRoutes = ['root' => null];
 
-    private function _findRoute(string $url, string $method, array $routes): void
-    {
+    private function _findRoute(
+        string $url,
+        string $method,
+        array $routes,
+        bool $debug
+    ): void {
         foreach ($routes as $route) {
             if (!$route->verifyUrl(url: $url)) {
                 continue;
@@ -22,12 +26,12 @@ class App
                     code: 405
                 );
             }
-            $route->callController(method: $method);
+            $route->callController(method: $method, debug: $debug);
         }
         Response::json(body: ["message" => 'Endpoint not found.'], code: 404);
     }
 
-    public function run(): void
+    public function run(bool $debug = false): void
     {
         $url = $_SERVER['REQUEST_URI'];
         $method = $_SERVER['REQUEST_METHOD'];
@@ -38,7 +42,7 @@ class App
         } else {
             $routes = $this->_routes;
         }
-        $this->_findRoute(url: $url, method: $method, routes: $routes);
+        $this->_findRoute(url: $url, method: $method, routes: $routes, debug: $debug);
     }
 
     public function include(string $key, Router $router): void
