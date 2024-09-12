@@ -42,7 +42,12 @@ class App
         } else {
             $routes = $this->_routes;
         }
-        $this->_findRoute(url: $url, method: $method, routes: $routes, debug: $debug);
+        $this->_findRoute(
+            url: $url,
+            method: $method,
+            routes: $routes,
+            debug: $debug
+        );
     }
 
     public function include(string $key, Router $router): void
