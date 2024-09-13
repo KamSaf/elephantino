@@ -474,4 +474,4 @@ composer.lock
 *.scss.map
 test
 todo.txt
-index.php
+./index.php
