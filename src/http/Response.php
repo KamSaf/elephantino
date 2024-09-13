@@ -1,6 +1,6 @@
 <?php
 
-namespace Elephantino\Utils;
+namespace Elephantino\Http;
 
 /**
  * Class containing functions serving as different kinds of HTTP responses

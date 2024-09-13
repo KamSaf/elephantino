@@ -4,7 +4,7 @@ namespace Elephantino\Core;
 
 use Elephantino\Traits\RoutesTrait;
 use Elephantino\Core\Router;
-use Elephantino\Utils\Response;
+use Elephantino\Http\Response;
 
 class App
 {

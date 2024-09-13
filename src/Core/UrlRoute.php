@@ -4,8 +4,8 @@ namespace Elephantino\Core;
 
 use ReflectionFunction;
 use Exception;
-use Elephantino\Utils\Request;
-use Elephantino\Utils\Response;
+use Elephantino\Http\Request;
+use Elephantino\Http\Response;
 
 
 class UrlRoute
