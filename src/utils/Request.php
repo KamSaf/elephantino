@@ -1,5 +1,7 @@
 <?php
 
+namespace Elephantino\Utils;
+
 /**
  * Class containing functions for accessing request data
  */

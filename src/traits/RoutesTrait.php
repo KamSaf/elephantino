@@ -1,5 +1,9 @@
 <?php
 
+namespace Elephantino\Traits;
+
+use Elephantino\UrlRoute\UrlRoute;
+
 $rootPath = $_SERVER['DOCUMENT_ROOT'];
 require_once "{$rootPath}/src/UrlRoute.php";
 

@@ -1,9 +1,15 @@
 <?php
 
+namespace Elephantino\Core;
+
 $rootPath = $_SERVER['DOCUMENT_ROOT'];
 require_once "{$rootPath}/src/traits/RoutesTrait.php";
 require_once "{$rootPath}/src/utils/Response.php";
 require_once "{$rootPath}/src/Router.php";
+
+use Elephantino\Traits\RoutesTrait;
+use Elephantino\Core\Router;
+use Elephantino\Utils\Response;
 
 class App
 {
