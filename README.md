@@ -26,7 +26,7 @@ To create application using it first you need to install it in your project:
 
 2. Include ```Elephantino``` in your project by running:
 
-        composer require kamsaf/elephantino:dev-main
+        composer require kamsaf/elephantino
         
 
 By now you are ready to use it. To start project run script:
