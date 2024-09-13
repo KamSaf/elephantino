@@ -3,8 +3,8 @@
 echo "Setting up Elephantino skeleton app...\n\n";
 
 $filesToCopy = [
-    './vendor/kamsaf/elephantino/scripts/base/index.php' => './src/index.php',
-    './vendor/kamsaf/elephantino/scripts/base/main.php' => './main.php',
+    './vendor/kamsaf/elephantino/scripts/base/index.php' => './index.php',
+    './vendor/kamsaf/elephantino/scripts/base/main.php' => './src/main.php',
 ];
 
 foreach ($filesToCopy as $source => $destination) {
