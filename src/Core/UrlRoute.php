@@ -1,6 +1,6 @@
 <?php
 
-namespace Elephantino\UrlRoute;
+namespace Elephantino\Core;
 
 use ReflectionFunction;
 use Exception;

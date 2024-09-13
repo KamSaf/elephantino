@@ -2,10 +2,7 @@
 
 namespace Elephantino\Traits;
 
-use Elephantino\UrlRoute\UrlRoute;
-
-$rootPath = $_SERVER['DOCUMENT_ROOT'];
-require_once "{$rootPath}/src/UrlRoute.php";
+use Elephantino\Core\UrlRoute;
 
 trait RoutesTrait
 {

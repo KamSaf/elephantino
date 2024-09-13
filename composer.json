@@ -8,7 +8,10 @@
     },
     "autoload": {
         "psr-4": {
-            "Elephantino\\": "src/"
+            "Elephantino\\": "src/",
+            "Elephantino\\Core\\": "src/core/",
+            "Elephantino\\Traits\\": "src/traits/",
+            "Elephantino\\Http\\": "src/http/"
         }
     },
     "authors": [
