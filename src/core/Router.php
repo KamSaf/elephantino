@@ -1,5 +1,8 @@
 <?php
-require_once "{$rootPath}/src/traits/RoutesTrait.php";
+
+namespace Elephantino\Core;
+
+use Elephantino\Traits\RoutesTrait;
 
 /**
  * Router class is supposed to be used to split endpoints

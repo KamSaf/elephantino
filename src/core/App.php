@@ -1,9 +1,10 @@
 <?php
 
-$rootPath = $_SERVER['DOCUMENT_ROOT'];
-require_once "{$rootPath}/src/traits/RoutesTrait.php";
-require_once "{$rootPath}/src/utils/Response.php";
-require_once "{$rootPath}/src/Router.php";
+namespace Elephantino\Core;
+
+use Elephantino\Traits\RoutesTrait;
+use Elephantino\Core\Router;
+use Elephantino\Http\Response;
 
 class App
 {
@@ -21,14 +22,14 @@ class App
                 continue;
             }
             if (!$route->verifyMethod(method: $method)) {
-                Response::json(
-                    body: ['message' => 'Method not allowed.'],
+                Response::error(
+                    message: 'Method not allowed.',
                     code: 405
                 );
             }
             $route->callController(method: $method, debug: $debug);
         }
-        Response::json(body: ["message" => 'Endpoint not found.'], code: 404);
+        Response::error(message: 'Endpoint not found.', code: 404);
     }
 
     public function run(bool $debug = false): void
@@ -42,7 +43,12 @@ class App
         } else {
             $routes = $this->_routes;
         }
-        $this->_findRoute(url: $url, method: $method, routes: $routes, debug: $debug);
+        $this->_findRoute(
+            url: $url,
+            method: $method,
+            routes: $routes,
+            debug: $debug
+        );
     }
 
     public function include(string $key, Router $router): void

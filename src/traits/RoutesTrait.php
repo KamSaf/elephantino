@@ -1,7 +1,8 @@
 <?php
 
-$rootPath = $_SERVER['DOCUMENT_ROOT'];
-require_once "{$rootPath}/src/UrlRoute.php";
+namespace Elephantino\Traits;
+
+use Elephantino\Core\UrlRoute;
 
 trait RoutesTrait
 {
