@@ -9,10 +9,11 @@ $filesToCopy = [
 
 foreach ($filesToCopy as $source => $destination) {
     if (file_exists($source)) {
+        $name = explode($destination, '/')[1];
         if (copy($source, $destination)) {
-            echo "Copied $source to $destination\n";
+            echo "Created $name in $destination\n";
         } else {
-            echo "Failed to copy $source to $destination\n";
+            echo "Failed to create $name in $destination\n";
         }
     } else {
         echo "Source file $source does not exist\n";
