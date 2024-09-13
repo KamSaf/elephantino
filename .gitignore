@@ -475,3 +475,4 @@ composer.lock
 phpcs.xml
 test
 todo.txt
+index.php
