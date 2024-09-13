@@ -4,7 +4,7 @@
     "type": "library",
     "license": "MIT",
     "scripts": {
-        "dev!!": "php -S localhost:8000"
+        "dev": "php -S localhost:8000"
     },
     "autoload": {
         "psr-4": {
