@@ -105,7 +105,8 @@ class UrlRoute
     {
         $reg = explode('/', $address);
         for ($i = 0; $i < count($reg); $i++) {
-            $reg[$i] = $reg[$i][0] == ':' ? '([0-9a-zA-Z\-]+)' : $reg[$i];
+            $reg[$i] = $reg[$i] && $reg[$i][0] == ':'
+                ? '([0-9a-zA-Z\-]+)' : $reg[$i];
         }
         return "/^" . implode(separator: '\/', array: $reg) . '(?:\/)?$/';
     }

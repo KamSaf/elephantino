@@ -20,11 +20,11 @@ Elephantino is a micro PHP web application framework created purely for fun and 
 
 To create application using it first you need to install it in your project:
 
-    1. If you haven't created project yet run and go through its configuration:
+1. If you haven't created project yet run and go through its configuration:
 
         composer init
 
-    2. Include ```Elephantino``` in your project by running:
+2. Include ```Elephantino``` in your project by running:
 
         composer require kamsaf/elephantino:dev-main
         

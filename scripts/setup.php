@@ -9,10 +9,12 @@ $filesToCopy = [
 
 foreach ($filesToCopy as $source => $destination) {
     if (file_exists($source)) {
-        $name = explode($destination, '/')[1];
-        if (copy($source, $destination)) {
-            echo "Created $name in $destination\n";
-        } else {
+        $name = explode('/', $destination)[1];
+        try {
+            if (copy($source, $destination)) {
+                echo "Created $name in $destination\n";
+            }
+        } catch (Exception $e) {
             echo "Failed to create $name in $destination\n";
         }
     } else {
