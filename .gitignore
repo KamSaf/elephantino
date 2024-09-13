@@ -472,7 +472,6 @@ composer.lock
 *.css.map
 *.sass.map
 *.scss.map
-phpcs.xml
 test
 todo.txt
 index.php
