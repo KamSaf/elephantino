@@ -8,23 +8,34 @@ namespace Elephantino\Http;
 class Request
 {
     private array $_params;
-    private array $_postData;
+    private array $_body;
 
-    private function _sanitizeInput(array $json): array
+    private function _sanitize(array $json): array
     {
-        return array_map("htmlspecialchars", $json);
+        return array_map('htmlspecialchars', $json);
+    }
+
+    private function _getPostFiles(array $files): array
+    {
+        return array_map(fn($file) => $file['tmp_name'], $files);
     }
 
     public function __construct($params)
     {
         $this->_params = $params;
-        // var_dump(file_get_contents('php://input'));
-        var_dump($_FILES);
-        $json = json_decode(
-            json: file_get_contents('php://input'),
-            associative: true
-        );
-        $this->_postData = $json ? Request::_sanitizeInput($json) : [];
+        $body = [];
+        if (explode(';', $_SERVER['CONTENT_TYPE'])[0] == 'multipart/form-data') {
+            $body = Request::_getPostFiles($_FILES);
+        }
+        if ($_SERVER['CONTENT_TYPE'] == 'text/json') {
+            $body = Request::_sanitize(
+                json_decode(
+                    json: file_get_contents('php://input'),
+                    associative: true
+                )
+            );
+        }
+        $this->_body = $body;
     }
 
     public function getParams(): array
@@ -34,6 +45,6 @@ class Request
 
     public function getBody(): array
     {
-        return $this->_postData;
+        return $this->_body;
     }
 }
