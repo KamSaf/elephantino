@@ -80,6 +80,9 @@ class UrlRoute
      */
     private static function _getUrlParams(string $path): array
     {
+        if (strlen($path) <= 1) {
+            return [];
+        }
         $url = UrlRoute::getUrl();
         $urlPattern = explode('/', substr($path, 1, strlen($path)));
         if (count($urlPattern) != count($url)) {
