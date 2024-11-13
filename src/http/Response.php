@@ -14,7 +14,10 @@ class Response
     {
         http_response_code(response_code: $code);
         header('Content-Type: application/json');
-        echo json_encode(['code' => $code, 'body' => $body]);
+        echo json_encode(
+            ['code' => $code, 'body' => $body],
+            JSON_UNESCAPED_SLASHES
+        ) . "\r\n";
         exit();
     }
 
